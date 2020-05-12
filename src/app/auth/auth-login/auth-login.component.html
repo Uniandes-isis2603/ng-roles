@@ -31,12 +31,17 @@
 			<div class="form-group  mx-sm-3 mb-2">
 				<label for="role">
 					Role
-				</label>
-				<input id="role" type="text" class="form-control" formControlName="role" placeholder="Your role">
+        </label>
+        <select class="form-control" id="role" rows="3" formControlName="role">
+          <option [value]="e" *ngFor="let e of roles">{{e}}</option>
+
+        </select>
+
 				<div class="alert alert-danger alert-dismissible fade show"
 					*ngIf="userForm.get('role').hasError('required') && userForm.get('role').touched">
 					Role required
 				</div>
+
 
 
 			</div>
