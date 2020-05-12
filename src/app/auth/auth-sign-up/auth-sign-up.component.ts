@@ -1,44 +1,46 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 import { AuthService } from '../auth.service';
 import { User } from '../user';
 
 @Component({
-    selector: 'app-auth-sign-up',
-    templateUrl: './auth-sign-up.component.html',
-    styleUrls: ['./auth-sign-up.component.css']
+  selector: 'app-auth-sign-up',
+  templateUrl: './auth-sign-up.component.html',
+  styleUrls: ['./auth-sign-up.component.css']
 })
 export class AuthSignUpComponent implements OnInit {
+  userForm: FormGroup;
 
-    /**
-    * Constructor for the component
-    * @param authService Auth service provider
-    * @param toastrService The toastr to show messages to the user
-    */
-    constructor(
-        private authService: AuthService,
-        private toastrService: ToastrService,
-    ) { }
+  user: User;
+  roles: string[];
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastrService: ToastrService,
+    private authService: AuthService,
+  ) {
 
-    user: User;
+  }
+  signUp(user): void {
+    this.authService.login(user.role);
+    this.toastrService.success('Successfully signed up')
+  }
 
-    roles: String[];
 
-    /**
-    * Sign the user up with the selected role
-    */
-    signUp(): void {
-        this.authService.login(this.user.role);
-        this.toastrService.success('Successfully signed up')
-    }
 
-    /**
-    * This function will initialize the component
-    */
-    ngOnInit() {
-        this.user = new User();
-        this.roles = ['Administrator', 'Client'];
-    }
+  cancelCreation() {
+    console.log('Cancelando ...');
+    this.userForm.reset();
+  }
 
+  ngOnInit() {
+    this.userForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      role: ['Client', [Validators.required]],
+    });
+    this.user = new User();
+    this.roles = ['Administrator', 'Client'];
+  }
 }

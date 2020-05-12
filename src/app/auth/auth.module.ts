@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AuthLoginComponent } from './auth-login/auth-login.component';
 import { AuthSignUpComponent } from './auth-sign-up/auth-sign-up.component';
 
@@ -14,7 +14,7 @@ import { AuthSignUpComponent } from './auth-sign-up/auth-sign-up.component';
         AppRoutingModule,
         HttpClientModule,
         CommonModule,
-        FormsModule
+        ReactiveFormsModule
     ],
     declarations: [AuthLoginComponent, AuthSignUpComponent],
     providers: [AuthService],

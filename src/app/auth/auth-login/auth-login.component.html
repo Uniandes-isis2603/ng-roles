@@ -1,26 +1,50 @@
-<div class="row">
-    <div class="col-6 offset-3">
-        <br>
-        <h2 class="text-center">Login</h2>
-        <br>
-        <form name="login" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-            <div class="form-group">
-                <label for="username"><b>Name</b></label>
-                <input type="text" name="username" class="form-control" id="username" [(ngModel)]="user.name" required>
-            </div>
-            <div class="form-group">
-                <label for="password"><b>Password</b></label>
-                <input type="text" name="password" class="form-control" id="password" [(ngModel)]="user.password" required>
-            </div>
-            <div class="form-group">
-                <label for="role"><b>Role</b></label>
-                <select class="custom-select" name="role" id="role" [(ngModel)]="user.role" required>
-                    <option [value]="role" *ngFor="let role of roles">{{role}}</option>
-                </select>
-            </div>
-            <div class="justify-content-center align-self-center">
-                <button type="submit" class="btn btn-primary">Login</button>
-            </div>
-        </form>
-    </div>
+<div class="container-fluid">
+	<div class="col-4 p-3">
+		<div class="h4">Login</div>
+		<form [formGroup]="userForm" (ngSubmit)="!userForm.invalid && login(userForm.value)">
+
+			<div class="form-group mx-sm-3 mb-2">
+				<label for="name">
+					Name
+				</label>
+				<input novalidate id="name" class="form-control" formControlName="name" placeholder="Your Full Name">
+				<div class="alert alert-danger alert-dismissible fade show"
+					*ngIf="userForm.get('name').hasError('required') && userForm.get('name').touched">
+					Name required
+				</div>
+
+			</div>
+
+			<div class="form-group  mx-sm-3 mb-2">
+				<label for="password">
+					password
+				</label>
+				<input id="password" type="text" class="form-control" formControlName="password"
+					placeholder="Your password">
+
+				<div class="alert alert-danger alert-dismissible fade show"
+					*ngIf="userForm.get('password').hasError('required') && userForm.get('password').touched">
+					password required
+				</div>
+			</div>
+
+			<div class="form-group  mx-sm-3 mb-2">
+				<label for="role">
+					role
+				</label>
+				<input id="role" type="text" class="form-control" formControlName="role" placeholder="Your role">
+				<div class="alert alert-danger alert-dismissible fade show"
+					*ngIf="userForm.get('role').hasError('required') && userForm.get('role').touched">
+					role required
+				</div>
+
+
+			</div>
+
+			<div class="row  m-3">
+				<button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Create</button>
+				<button type="button" class="btn btn-danger ml-3" (click)="cancelCreation()">Cancel</button>
+			</div>
+		</form>
+	</div>
 </div>

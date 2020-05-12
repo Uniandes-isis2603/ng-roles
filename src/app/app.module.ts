@@ -4,7 +4,11 @@ import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClientModule } from './client/client.module';
-import { NgxPermissionsModule, NgxRolesService } from 'ngx-permissions';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxPermissionsModule} from 'ngx-permissions';
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +18,13 @@ import { NgxPermissionsModule, NgxRolesService } from 'ngx-permissions';
     AppRoutingModule,
     AuthModule,
     ClientModule,
-    NgxPermissionsModule.forRoot()
+    NgxPermissionsModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

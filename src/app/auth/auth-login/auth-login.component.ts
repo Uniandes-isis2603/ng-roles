@@ -1,46 +1,46 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-
-import { AuthService } from '../auth.service';
-
-import { User } from '../user';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
+import { AuthService } from '../auth.service';
+import { User } from '../user';
+
 @Component({
-    selector: 'app-auth-login',
-    templateUrl: './auth-login.component.html',
-    styleUrls: ['./auth-login.component.css']
+  selector: 'app-auth-login',
+  templateUrl: './auth-login.component.html',
+  styleUrls: ['./auth-login.component.css']
 })
 export class AuthLoginComponent implements OnInit {
+  userForm: FormGroup;
 
-    /**
-    * Constructor for the component
-    * @param authService Auth service provider
-    * @param toastrService The toastr to show messages to the user
-    */
-    constructor(
-        private authService: AuthService,
-        private toastrService: ToastrService,
-    ) { }
+  user: User;
+  roles: string[];
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastrService: ToastrService,
+    private authService: AuthService,
+  ) {
 
-    user: User;
+  }
+  login(user): void {
+    this.authService.login(user.role);
+    this.toastrService.success('Successfully login')
+  }
 
-    roles: String[];
 
-    /**
-    * Logs the user in with the selected role
-    */
-    login(): void {
-        this.authService.login(this.user.role);
-        this.toastrService.success('Logged in')
-    }
 
-    /**
-    * This function will initialize the component
-    */
-    ngOnInit() {
-        this.user = new User();
-        this.roles = ['Administrator', 'Client'];
-    }
+  cancelCreation() {
+    console.log('Cancelando ...');
+    this.userForm.reset();
+  }
 
+  ngOnInit() {
+    this.userForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      role: ['Client', [Validators.required]],
+    });
+    this.user = new User();
+    this.roles = ['Administrator', 'Client'];
+  }
 }

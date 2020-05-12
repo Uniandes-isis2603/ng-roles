@@ -21,9 +21,7 @@ export class AuthService {
   constructor(private router: Router, private roleService: NgxRolesService, private permissionsService: NgxPermissionsService) { }
 
   start(): void {
-    this.permissionsService.flushPermissions();
     this.roleService.flushRoles();
-    this.permissionsService.loadPermissions(['edit_author_permission', 'delete_author_permission', 'leave_review']);
     const role = localStorage.getItem('role');
     if (!role) {
       this.setGuestRole();
@@ -41,13 +39,13 @@ export class AuthService {
 
   setClientRole(): void {
     this.roleService.flushRoles();
-    this.roleService.addRole('CLIENT', ['leave_review']);
+    this.roleService.addRole('CLIENT', ['']);
     localStorage.setItem('role', 'CLIENT');
   }
 
   setAdministratorRole(): void {
     this.roleService.flushRoles();
-    this.roleService.addRole('ADMIN', ['edit_author_permission', 'delete_author_permission']);
+    this.roleService.addRole('ADMIN',['']);
     localStorage.setItem('role', 'ADMIN');
   }
 
