@@ -1,5 +1,5 @@
 /**
-* This class represents a user of the BookStore.
+* This class represents a user of the Clientstore.
 * It contains all the information relevant to the user.
 */
 export class User {
