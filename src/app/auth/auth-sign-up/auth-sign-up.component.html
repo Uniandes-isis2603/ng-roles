@@ -33,7 +33,7 @@
 					Role
         </label>
         <select class="form-control" id="role" rows="3" formControlName="role">
-          <option *ngFor="let e of roles">{{e}}</option>
+          <option [value]="e" *ngFor="let e of roles">{{e}}</option>
 
         </select>
 
