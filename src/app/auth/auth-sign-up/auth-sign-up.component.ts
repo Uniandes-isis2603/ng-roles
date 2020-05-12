@@ -38,7 +38,7 @@ export class AuthSignUpComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      role: ['Client', [Validators.required]],
+      role: ['', [Validators.required]],
     });
     this.user = new User();
     this.roles = ['Administrator', 'Client'];
